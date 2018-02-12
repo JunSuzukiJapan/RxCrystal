@@ -2,6 +2,7 @@ require "./rx/*"
 
 # TODO: Write documentation for `Rx`
 module Rx
+
   class Observable(T)
     # class methods
     def self.from_array(array)
@@ -41,6 +42,18 @@ module Rx
       end
     end
 
+    def select(filter : Proc(T, Bool))
+      
+    end
+
+  end
+
+  class SelectObservable
+    def initialize(@filter : Proc(T, Bool))
+    end
+
+    def subscribe(onNext : Proc(T, Nil))
+    end
   end
 
   class Observer(T)

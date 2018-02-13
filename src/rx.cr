@@ -45,68 +45,17 @@ module Rx
       end
     end
 
-  end
-
-  class ObservableArray(T)
-    @array: Array(T)
-
-    # Initializer
-    def initialize(array : Array(T))
-        @array = array
-    end
-
-    # instance methods
-    def subscribe(observer : Observer(T))
-      begin
-        i = 0
-        while i < @array.size
-          item = @array[i]
-          i = i + 1
-          observer.onNext(item)
-        end
-        observer.onComplete
-      rescue ex : Exception
-        observer.onError(ex)
-      end
-    end
-
-    def subscribe(onNext : Proc(T, Nil))
-      i = 0
-      while i < @array.size
-        item = @array[i]
-        i = i + 1
-        onNext.call(item)
-      end
-    end
-
     def select(filter : Proc(T, Bool))
       
     end
 
   end
 
-  class SelectObservable
-    def initialize(@filter : Proc(T, Bool))
+  class SelectIterator
+    def initialize(@iter : Iterator(T), @filter : Proc(T, Bool))
     end
 
     def subscribe(onNext : Proc(T, Nil))
-    end
-  end
-
-  class Observer(T)
-    def initialize(@onNext : Proc(T, Nil), @onError : Proc(Exception, Nil), @onComplete : Proc(Nil))
-    end
-
-    def onNext(item : T)
-      @onNext.call(item)
-    end
-
-    def onError(e : Exception)
-      @onError.call(e)
-    end
-
-    def onComplete
-      @onComplete.call()
     end
   end
 

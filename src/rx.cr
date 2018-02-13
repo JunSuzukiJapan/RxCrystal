@@ -88,11 +88,11 @@ module Rx
       ary
     end
 
-    def subscribe(observer : Observer(T))
+    def subscribe(observer : Observer(U))
       begin
         while true
           item = @iter.next
-          if item.is_a? T
+          if item.is_a? U
             observer.onNext(item)
           else
             break
@@ -130,6 +130,11 @@ module Rx
     def zip(another : Observable(T, T))
       iter = ZipIterator.new(@iter, another.iter)
       Observable(T, Tuple(T, T)).new iter
+    end
+
+    def repeat(count : Int32)
+      iter = RepeatIterator.new(@iter, count)
+      Observable(T, T).new iter
     end
 
   end

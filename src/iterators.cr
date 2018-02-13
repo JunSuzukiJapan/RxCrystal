@@ -51,4 +51,30 @@ module Rx
 
   end
 
+  #
+  # ZipIterator
+  #
+  class ZipIterator(T)
+    include Iterator(T)
+
+    def initialize(@iter1 : Iterator(T), @iter2 : Iterator(T))
+    end
+
+    def next
+      item1 = @iter1.next
+      item2 = @iter2.next
+      if item1.is_a? T && item2.is_a? T
+        {item1, item2}
+      else
+        stop
+      end
+    end
+
+    def rewind
+      @iter1.rewind
+      @iter2.rewind
+    end
+
+  end
+
 end

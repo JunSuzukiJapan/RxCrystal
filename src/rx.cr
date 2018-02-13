@@ -34,7 +34,7 @@ module Rx
       end
     end
 
-    def subscribe(onNext : Proc(T, Nil))
+    def subscribe(&onNext : Proc(T, Nil))
       while true
         item = @iter.next
         if item.is_a? T
@@ -45,34 +45,14 @@ module Rx
       end
     end
 
-    def filter(predicate : Proc(T, Bool))
+    def filter(&predicate : Proc(T, Bool))
       iter = FilterIterator.new(@iter, predicate)
       Observable.new iter
     end
 
-  end
-
-  class FilterIterator(T)
-    include Iterator(T)
-
-    def initialize(@iter : Iterator(T), @predicate : Proc(T, Bool))
-    end
-
-    def next
-      while true
-        item = @iter.next
-        if item.is_a? T
-          if @predicate.call(item) 
-            return item
-          end
-        else
-          return stop
-        end
-      end
-    end
-
-    def rewind
-      @iter.rewind
+    def map(&method : Proc(T, _))
+      iter = MapIterator.new(@iter, method)
+      Observable.new iter
     end
 
   end

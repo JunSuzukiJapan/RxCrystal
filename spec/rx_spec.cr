@@ -4,7 +4,7 @@ require "../src/rx"
 describe Rx do
   it "rx" do
     a = Rx::Observable.from_array [4, 5, 6]
-    a.subscribe(->(item : Int32){puts item})
+    a.subscribe {|item| puts item}
 
     observer = Rx::Observer.new(
       ->(item : Int32){ puts item },
@@ -35,8 +35,14 @@ describe Rx do
   it "select" do
     a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
     a
-      .filter(->(item : Int32){ item % 2 == 0})
-      .subscribe(->(item : Int32){puts item})
+      .filter {|item| item % 2 == 0}
+      .subscribe {|item| puts item}
   end
+
+#  it "map" do
+#    a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
+#    b = a.map {|x| x.to_s }
+#    b.subscribe {|x| puts x}
+#  end
 
 end

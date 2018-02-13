@@ -61,6 +61,21 @@ module Rx
     getter iter
 
     # instance methods
+    def to_ary
+      ary = [] of U
+
+      while true
+        item = @iter.next
+        if item.is_a? U
+          ary.push item
+        else # item == Iterator::Stop
+          break
+        end
+      end
+
+      ary
+    end
+
     def subscribe(observer : Observer(T))
       begin
         while true

@@ -22,8 +22,8 @@ module Rx
 
   end
 
-  class ErrorIterator
-    include Iterator(Nil)
+  class ErrorIterator(T)
+    include Iterator(T)
 
     def initialize(@ex : Exception)
     end

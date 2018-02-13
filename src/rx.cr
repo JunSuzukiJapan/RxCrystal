@@ -15,7 +15,11 @@ module Rx
     end
 
     def self.error(e : Exception)
-      Observable(Nil, Nil).new(ErrorIterator.new e)
+      Observable(Nil, Nil).new(ErrorIterator(Nil).new e)
+    end
+
+    def self.empty
+      Observable(Nil, Nil).new(ArrayIterator.new [] of Nil)
     end
 
     def self.just(arg1 : T)

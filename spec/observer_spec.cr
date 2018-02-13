@@ -20,4 +20,14 @@ describe Rx::Observer do
     a = Rx::Observable.error(Exception.new "Some Error")
     a.subscribe(observer)
   end
+
+  it "empty" do
+    observer = Rx::Observer.new(
+      ->(x : Nil){ puts "onNext: #{x}" },
+      ->(ex : Exception){ puts "onError: #{ex}"},
+      ->{ puts "Completed" }
+    )
+    a = Rx::Observable.empty
+    a.subscribe(observer)
+  end
 end

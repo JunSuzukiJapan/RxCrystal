@@ -16,25 +16,25 @@ module Rx
     end
 
     # instance methods
-    def subscribe(observer : Observer(T))
-      begin
-        while true
-          item = @iter.next
-          if item.is_a? T
-            observer.onNext(item)
-          else
-            break
-          end
-        end
+#    def subscribeWithObserver(observer : Observer(T))
+#      begin
+#        while true
+#          item = @iter.next
+#          if item.is_a? T
+#            observer.onNext(item)
+#          else
+#            break
+#          end
+#        end
+#
+#        observer.onComplete
+#
+#      rescue ex : Exception
+#        observer.onError(ex)
+#      end
+#    end
 
-        observer.onComplete
-
-      rescue ex : Exception
-        observer.onError(ex)
-      end
-    end
-
-    def subscribe(&onNext : Proc(T, Nil))
+    def subscribe(&onNext : T -> _)
       while true
         item = @iter.next
         if item.is_a? T
@@ -50,8 +50,8 @@ module Rx
       Observable.new iter
     end
 
-    def map(&method : Proc(T, _))
-      iter = MapIterator.new(@iter, method)
+    def map(&block : T -> _)
+      iter = MapIterator.new(@iter, block)
       Observable.new iter
     end
 

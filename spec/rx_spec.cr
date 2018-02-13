@@ -12,7 +12,7 @@ describe Rx do
       ->{ puts "Completed" }
     )
     a = Rx::Observable.from_array [4, 5, 6]
-    a.subscribe(observer)
+#    a.subscribeWithObserver(observer)
 
 
     a = Rx::Observable.from_array [4, 5, 6]
@@ -39,10 +39,18 @@ describe Rx do
       .subscribe {|item| puts item}
   end
 
-#  it "map" do
-#    a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
-#    b = a.map {|x| x.to_s }
-#    b.subscribe {|x| puts x}
-#  end
+  it "map" do
+    a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
+    a = a.filter {|x| x % 2 == 1}
+    a = a.map {|x| x * x }
+    a.subscribe {|x| puts x}
+
+    #a = Rx::ArrayIterator.new [1, 2, 3]
+    #iter = Rx::MapIterator.new a, ->(x: Int32){x}
+    #puts "next: #{iter.next}"
+    #puts "next: #{iter.next}"
+    #puts "next: #{iter.next}"
+    #puts "next: #{iter.next}"
+  end
 
 end

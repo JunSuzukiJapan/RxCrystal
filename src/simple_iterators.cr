@@ -22,4 +22,20 @@ module Rx
 
   end
 
+  class ErrorIterator
+    include Iterator(Nil)
+
+    def initialize(@ex : Exception)
+    end
+
+    def next
+      raise @ex
+    end
+
+    def rewind
+      # do nothing
+    end
+
+  end
+
 end

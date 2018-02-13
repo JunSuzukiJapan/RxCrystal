@@ -10,6 +10,14 @@ module Rx
         Observable(T, T).new(ArrayIterator.new array)
     end
 
+    def self.range(start : Int32, end : Int32)
+      Observable(Int32, Int32).new(RangeIterator.new(start, end))
+    end
+
+    def self.error(e : Exception)
+      Observable(Nil, Nil).new(ErrorIterator.new e)
+    end
+
     def self.just(arg1 : T)
       Observable(T, T).new(ArrayIterator.new [arg1])
     end
@@ -48,10 +56,6 @@ module Rx
 
     def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T, arg6 : T, arg7 : T, arg8 : T, arg9 : T, arg10 : T)
       Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
-    end
-
-    def self.range(start : Int32, end : Int32)
-      Observable(Int32, Int32).new(RangeIterator.new(start, end))
     end
 
     # initializer

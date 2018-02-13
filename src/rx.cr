@@ -16,23 +16,23 @@ module Rx
     end
 
     # instance methods
-#    def subscribeWithObserver(observer : Observer(T))
-#      begin
-#        while true
-#          item = @iter.next
-#          if item.is_a? T
-#            observer.onNext(item)
-#          else
-#            break
-#          end
-#        end
-#
-#        observer.onComplete
-#
-#      rescue ex : Exception
-#        observer.onError(ex)
-#      end
-#    end
+    def subscribe(observer : Observer(T))
+      begin
+        while true
+          item = @iter.next
+          if item.is_a? T
+            observer.onNext(item)
+          else
+            break
+          end
+        end
+
+        observer.onComplete
+
+     rescue ex : Exception
+        observer.onError(ex)
+      end
+    end
 
     def subscribe(&onNext : T -> _)
       while true

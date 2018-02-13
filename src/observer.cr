@@ -1,7 +1,10 @@
 module Rx
 
   class Observer(T)
-    def initialize(@onNext : Proc(T, Nil), @onError : Proc(Exception, Nil), @onComplete : Proc(Nil))
+    def initialize(@onNext : Proc(T, Nil) = ->(x : T){},
+      @onError : Proc(Exception, Nil) = ->(ex : Exception){},
+      @onComplete : Proc(Nil) = ->(){}
+    )
     end
 
     def onNext(item : T)

@@ -11,8 +11,11 @@ describe Rx do
       ->(ex : Exception){ puts "Error: ", ex },
       ->{ puts "Completed" }
     )
+    observer = Rx::Observer.new onNext: ->(x : Int32){ puts x }
+    observer = Rx::Observer(Int32).new onError: ->(e : Exception){ puts "Error" }
+    observer = Rx::Observer(Int32).new onComplete: ->(){ puts "Completed." }
     a = Rx::Observable.from_array [4, 5, 6]
-#    a.subscribeWithObserver(observer)
+    #a.subscribe(observer) # この行があると、なぜか 'it "map" do'内のb.mapを呼んだときにエラーが起きる。おそらくCrystalのバグ。
 
 
     a = Rx::Observable.from_array [4, 5, 6]
@@ -41,16 +44,10 @@ describe Rx do
 
   it "map" do
     a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
-    a = a.filter {|x| x % 2 == 1}
-    a = a.map {|x| x * x }
-    a.subscribe {|x| puts x}
+    b = a.filter {|x| x % 2 == 1}
+      .map {|x| x * x }
+      .subscribe {|x| puts x}
 
-    #a = Rx::ArrayIterator.new [1, 2, 3]
-    #iter = Rx::MapIterator.new a, ->(x: Int32){x}
-    #puts "next: #{iter.next}"
-    #puts "next: #{iter.next}"
-    #puts "next: #{iter.next}"
-    #puts "next: #{iter.next}"
   end
 
 end

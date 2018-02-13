@@ -15,9 +15,9 @@ describe Rx::Observer do
     a.subscribe(observer)
   end
 
-  it "error" do
+  it "throw" do
     observer = Rx::Observer(Nil).new onError: ->(e: Exception){ puts "Error: #{e}"}
-    a = Rx::Observable.error(Exception.new "Some Error")
+    a = Rx::Observable.throw(Exception.new "Some Error")
     a.subscribe(observer)
   end
 

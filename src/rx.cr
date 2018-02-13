@@ -14,7 +14,7 @@ module Rx
       Observable(Int32, Int32).new(RangeIterator.new(start, end))
     end
 
-    def self.error(e : Exception)
+    def self.throw(e : Exception)
       Observable(Nil, Nil).new(ErrorIterator(Nil).new e)
     end
 

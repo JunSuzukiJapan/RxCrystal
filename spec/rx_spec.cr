@@ -30,11 +30,10 @@ describe Rx do
   end
 
   it "filter" do
-    #a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
-    #a.filter {|x| x % 2 == 0}
+    a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
+    a = a.filter {|x| x % 2 == 0}
     #  .subscribe {|x| puts x}
 
-    a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
     ary = a.filter {|x| x % 2 == 0}
       .to_ary
     (ary <=> [4, 6, 8, 10]).should eq 0

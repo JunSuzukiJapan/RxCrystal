@@ -1,6 +1,5 @@
 require "./spec_helper"
 require "../src/rx"
-require "../src/enumerable"
 
 describe Rx do
   it "rx" do
@@ -29,13 +28,8 @@ describe Rx do
   end
 
   it "enumerable" do
-    a = Rx::Enumerable.from_array [1, 2, 3]
-    while true
-      item = a.next
-      if item == nil
-        break
-      end
-      puts item
-    end
+    a = Rx::ArrayIterator.new [1, 2, 3]
+    a.each { |x| puts x }
   end
+
 end

@@ -1,4 +1,5 @@
 require "./rx/*"
+require "./*"
 
 # TODO: Write documentation for `Rx`
 module Rx
@@ -6,8 +7,44 @@ module Rx
   class Observable(T)
     # class methods
     def self.from_array(array)
-        ObservableArray.new(array)
+        #ObservableArray.new(array)
+        Observable.new(ArrayIterator.new array)
     end
+
+    # initializer
+    def initialize(@iter : Iterator(T))
+    end
+
+    # instance methods
+    def subscribe(observer : Observer(T))
+      begin
+        while true
+          item = @iter.next
+          if item.is_a? T
+            observer.onNext(item)
+          else
+            break
+          end
+        end
+
+        observer.onComplete
+
+      rescue ex : Exception
+        observer.onError(ex)
+      end
+    end
+
+    def subscribe(onNext : Proc(T, Nil))
+      while true
+        item = @iter.next
+        if item.is_a? T
+          onNext.call(item)
+        else # item == Iterator::Stop
+          break
+        end
+      end
+    end
+
   end
 
   class ObservableArray(T)
@@ -24,8 +61,8 @@ module Rx
         i = 0
         while i < @array.size
           item = @array[i]
-          observer.onNext(item)
           i = i + 1
+          observer.onNext(item)
         end
         observer.onComplete
       rescue ex : Exception
@@ -37,8 +74,8 @@ module Rx
       i = 0
       while i < @array.size
         item = @array[i]
-        onNext.call(item)
         i = i + 1
+        onNext.call(item)
       end
     end
 

@@ -6,7 +6,7 @@ describe Rx::Observer do
     observer = Rx::Observer.new(
       ->(x : Int32){ puts x },
       ->(ex : Exception){ puts "Error: ", ex },
-      ->{ puts "Completed" }
+      ->{ puts "observer Completed" }
     )
     #observer = Rx::Observer.new onNext: ->(x : Int32){ puts x }
     #observer = Rx::Observer(Int32).new onError: ->(e : Exception){ puts "Error" }
@@ -25,9 +25,19 @@ describe Rx::Observer do
     observer = Rx::Observer.new(
       ->(x : Nil){ puts "onNext: #{x}" },
       ->(ex : Exception){ puts "onError: #{ex}"},
-      ->{ puts "Completed" }
+      ->{ puts "empty Completed" }
     )
     a = Rx::Observable.empty
+    a.subscribe(observer)
+  end
+
+  it "never" do
+    observer = Rx::Observer.new(
+      ->(x : Int32){ puts "onNext: #{x}" },
+      ->(ex : Exception){ puts "onError: #{ex}"},
+      ->{ puts "never Completed" }
+    )
+    a = Rx::Observable(Int32, Int32).never
     a.subscribe(observer)
   end
 end

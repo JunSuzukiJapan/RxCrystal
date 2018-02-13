@@ -9,12 +9,12 @@ describe Rx do
 
   it "subscribe" do
     a = Rx::Observable.from_array [4, 5, 6]
-    a.subscribe {|item| puts item}
+    a.subscribe {|x| puts x}
   end
 
   it "observer" do
     observer = Rx::Observer.new(
-      ->(item : Int32){ puts item },
+      ->(x : Int32){ puts x },
       ->(ex : Exception){ puts "Error: ", ex },
       ->{ puts "Completed" }
     )
@@ -28,8 +28,8 @@ describe Rx do
   it "filter" do
     a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
     a
-      .filter {|item| item % 2 == 0}
-      .subscribe {|item| puts item}
+      .filter {|x| x % 2 == 0}
+      .subscribe {|x| puts x}
   end
 
   it "map" do
@@ -43,7 +43,12 @@ describe Rx do
     a = Rx::Observable.from_array [4, 5, 6]
     b = Rx::Observable.from_array [7, 8, 9]
     
-    a.zip(b).subscribe { |item| puts item }
+    a.zip(b).subscribe { |x| puts x }
+  end
+
+  it "just" do
+    a = Rx::Observable.just 1, 2, 3, 4, 5
+    a.subscribe {|x| puts x}
   end
 
 end

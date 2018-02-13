@@ -10,6 +10,46 @@ module Rx
         Observable(T, T).new(ArrayIterator.new array)
     end
 
+    def self.just(arg1 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1])
+    end
+
+    def self.just(arg1 : T, arg2 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T, arg6 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T, arg6 : T, arg7 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T, arg6 : T, arg7 : T, arg8 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T, arg6 : T, arg7 : T, arg8 : T, arg9 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9])
+    end
+
+    def self.just(arg1 : T, arg2 : T, arg3 : T, arg4 : T, arg5 : T, arg6 : T, arg7 : T, arg8 : T, arg9 : T, arg10 : T)
+      Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
+    end
+
     # initializer
     def initialize(@iter : Iterator(T))
     end

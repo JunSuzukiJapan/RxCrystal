@@ -45,18 +45,36 @@ module Rx
       end
     end
 
-    def select(filter : Proc(T, Bool))
-      
+    def filter(predicate : Proc(T, Bool))
+      iter = FilterIterator.new(@iter, predicate)
+      Observable.new iter
     end
 
   end
 
-  class SelectIterator
-    def initialize(@iter : Iterator(T), @filter : Proc(T, Bool))
+  class FilterIterator(T)
+    include Iterator(T)
+
+    def initialize(@iter : Iterator(T), @predicate : Proc(T, Bool))
     end
 
-    def subscribe(onNext : Proc(T, Nil))
+    def next
+      while true
+        item = @iter.next
+        if item.is_a? T
+          if @predicate.call(item) 
+            return item
+          end
+        else
+          return stop
+        end
+      end
     end
+
+    def rewind
+      @iter.rewind
+    end
+
   end
 
 end

@@ -32,4 +32,11 @@ describe Rx do
     a.each { |x| puts x }
   end
 
+  it "select" do
+    a = Rx::Observable.from_array [4, 5, 6, 7, 8, 9, 10]
+    a
+      .filter(->(item : Int32){ item % 2 == 0})
+      .subscribe(->(item : Int32){puts item})
+  end
+
 end

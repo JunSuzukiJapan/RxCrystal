@@ -51,4 +51,9 @@ describe Rx do
     a.subscribe {|x| puts x}
   end
 
+  it "range" do
+    a = Rx::Observable.range(0, 10)
+    a.subscribe {|x| puts x}
+  end
+
 end

@@ -50,6 +50,10 @@ module Rx
       Observable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
     end
 
+    def self.range(start : Int32, end : Int32)
+      Observable(Int32, Int32).new(RangeIterator.new(start, end))
+    end
+
     # initializer
     def initialize(@iter : Iterator(T))
     end

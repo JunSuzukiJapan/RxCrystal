@@ -9,18 +9,7 @@ module Rx
 
     # instance methods
     def to_ary
-      ary = [] of U
-
-      while true
-        item = @iter.next
-        if item.is_a? U
-          ary.push item
-        else # item == Iterator::Stop
-          break
-        end
-      end
-
-      ary
+      [] of T
     end
 
     def subscribe(

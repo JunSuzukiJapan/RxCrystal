@@ -1,5 +1,6 @@
 require "./rx/*"
 require "./*"
+require "./subjects/*"
 
 # TODO: Write documentation for `Rx`
 module Rx
@@ -88,6 +89,15 @@ module Rx
       ary
     end
 
+    def subscribe(
+      onNext : Proc(T, Nil) = ->(x : T){},
+      onError : Proc(Exception, Nil) = ->(ex : Exception){},
+      onComplete : Proc(Nil) = ->(){}
+    )
+      observer = Observer(T).new(onNext, onError, onComplete)
+      self.subscribe(observer)
+    end
+
     def subscribe(observer : Observer(U))
       begin
         while true
@@ -158,6 +168,14 @@ module Rx
       end
 
       ary
+    end
+
+    def subscribe(
+      onNext : Proc(T, Nil) = ->(x : T){},
+      onError : Proc(Exception, Nil) = ->(ex : Exception){},
+      onComplete : Proc(Nil) = ->(){}
+    )
+      # do nothing
     end
 
     def subscribe(observer : Observer(T))

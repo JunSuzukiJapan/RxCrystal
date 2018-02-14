@@ -1,27 +1,37 @@
 require "./spec_helper"
+require "./logger"
 require "../src/rx"
 
 describe Rx do
 
   it "subject" do
+    logger = Debug::Logger.new
+
     subject = Rx::Subject(Int32).new
 
     subject.subscribe(
-      ->(x : Int32){ puts "1 onNext: #{x}"},
-      ->(ex : Exception){ puts "1 onError"},
-      ->(){ puts "1 onComplete"}
+      ->(x : Int32){ logger.push "1 onNext: #{x}"},
+      ->(ex : Exception){ logger.push "1 onError"},
+      ->(){ logger.push "1 onComplete"}
     )
 
     subject.onNext(100)
 
     subject.subscribe(
-      ->(x : Int32){ puts "2 onNext: #{x}"},
-      ->(ex : Exception){ puts "2 onError"},
-      ->(){ puts "2 onComplete"}
+      ->(x : Int32){ logger.push "2 onNext: #{x}"},
+      ->(ex : Exception){ logger.push "2 onError"},
+      ->(){ logger.push "2 onComplete"}
     )
 
     subject.onNext(200)
     subject.onComplete()
+
+    logger.log.should eq "1 onNext: 100
+1 onNext: 200
+2 onNext: 200
+1 onComplete
+2 onComplete
+"
   end
 
 end

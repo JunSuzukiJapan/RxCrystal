@@ -2,14 +2,14 @@ module Rx
   class RangeIterator
     include Iterator(Int32)
 
-    def initialize(@start : Int32, @end : Int32)
-      @current = @start
+    def initialize(@start : Int32, @count : Int32)
+      @index = 0
     end
 
     def next
-      if @current < @end
-        result = @current
-        @current += 1
+      if @index < @count
+        result = @start + @index
+        @index += 1
         result
       else
         stop
@@ -17,7 +17,7 @@ module Rx
     end
 
     def rewind
-      @current = @start
+      @index = 0
     end
 
   end

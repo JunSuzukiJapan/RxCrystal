@@ -1,4 +1,5 @@
 require "./spec_helper"
+require "./logger"
 require "../src/rx"
 
 describe Rx do
@@ -10,10 +11,12 @@ describe Rx do
   end
 
   it "subscribe" do
+    logger = Debug::Logger.new
+
     a = Rx::Observable.from_array [4, 5, 6]
-    #a.subscribe {|x| puts x}
-    ary = a.to_ary
-    (ary <=> [4, 5, 6]).should eq 0
+    a.subscribe {|x| logger.push "#{x}"}
+
+    logger.log.should eq "456"
   end
 
   it "observer" do

@@ -10,17 +10,17 @@ describe Rx do
     subject = Rx::Subject(Int32).new
 
     subject.subscribe(
-      ->(x : Int32){ logger.push "1 onNext: #{x}"},
-      ->(ex : Exception){ logger.push "1 onError"},
-      ->(){ logger.push "1 onComplete"}
+      ->(x : Int32){ logger.pushln "1 onNext: #{x}"},
+      ->(ex : Exception){ logger.pushln "1 onError"},
+      ->(){ logger.pushln "1 onComplete"}
     )
 
     subject.onNext(100)
 
     subject.subscribe(
-      ->(x : Int32){ logger.push "2 onNext: #{x}"},
-      ->(ex : Exception){ logger.push "2 onError"},
-      ->(){ logger.push "2 onComplete"}
+      ->(x : Int32){ logger.pushln "2 onNext: #{x}"},
+      ->(ex : Exception){ logger.pushln "2 onError"},
+      ->(){ logger.pushln "2 onComplete"}
     )
 
     subject.onNext(200)

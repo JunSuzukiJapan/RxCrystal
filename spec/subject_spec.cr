@@ -122,32 +122,4 @@ describe Rx do
     logger.log.should eq "2345Completed"
   end
 
-  it "dummy" do
-    type = "ABCDEFGHIJ"
-
-    (0..type.size).each { |x|
-      args = ""
-      types = "("
-      params = ""
-
-      (0..x).each {|index|
-        ch = type[index]
-        if index == 0
-          args += "arg#{index} : #{ch}"
-          types += ch
-          params += "arg#{index}"
-        else
-          args += ", arg#{index} : #{ch}"
-          types += " | #{ch}"
-          params += ", arg#{index}"
-        end
-      }
-      types += ")"
-
-      puts "    def self.just(#{args})"
-      puts "      ColdObservable(#{types}, #{types}).new(ArrayIterator.new [#{params}])"
-      puts "    end"
-    }
-  end
-
 end

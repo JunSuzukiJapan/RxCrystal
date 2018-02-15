@@ -68,6 +68,15 @@ describe Rx do
     (ary <=> [1, 2, 3, 4, 5]).should eq 0
   end
 
+  it "any type just" do
+    logger = Debug::Logger.new
+
+    a = Rx::AnyTypeObservable.just(1, 'A', "string", {2, 'B', "another string"}, 3)
+    a.subscribe {|x| logger.push x.to_s}
+
+    logger.log.should eq "1Astring{2, 'B', \"another string\"}3"
+  end
+
   it "range" do
     a = Rx::Observable.range(0, 10)
     #a.subscribe {|x| puts x}

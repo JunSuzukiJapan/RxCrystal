@@ -1,6 +1,12 @@
 require "../observer"
 
 module Rx
+  class Observable(T, U)
+    def bindTo(subject : Subject(T))
+      self.subscribe {|item| subject.onNext(item)}
+    end
+  end
+
   class Subscription(T)
     def initialize(@subject : Subject(T), @subscriber : Observer(T))
     end

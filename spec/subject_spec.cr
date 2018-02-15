@@ -151,4 +151,28 @@ describe Rx do
 #"
 #  end
 
+  it "bindTo" do
+    logger = Debug::Logger.new
+
+    subject = Rx::Subject(Int32).new
+    subject.subscribe(
+      ->(x : Int32){ logger.pushln "onNext: #{x}"},
+      ->(ex : Exception){ logger.pushln "onError"},
+      ->(){ logger.pushln "onComplete"}
+    )
+
+    a = Rx::Observable.from_array [4, 5, 6]
+    a.bindTo(subject)
+
+    subject.onNext(100)
+    subject.onComplete()
+
+    logger.log.should eq "onNext: 4
+onNext: 5
+onNext: 6
+onNext: 100
+onComplete
+"
+  end
+
 end

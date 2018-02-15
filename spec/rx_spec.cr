@@ -15,8 +15,9 @@ describe Rx do
 
     a = Rx::Observable.from_array [4, 5, 6]
     a.subscribe {|x| logger.push "#{x}"}
+    a.subscribe {|x| logger.push "#{x}"}
 
-    logger.log.should eq "456"
+    logger.log.should eq "456456"
   end
 
   it "observer" do

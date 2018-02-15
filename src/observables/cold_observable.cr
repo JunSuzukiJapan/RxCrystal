@@ -119,6 +119,7 @@ module Rx
 
     def subscribe(observer : Observer(U))
       begin
+        @iter.rewind
         while true
           item = @iter.next
           if item.is_a? U
@@ -136,6 +137,7 @@ module Rx
     end
 
     def subscribe(&onNext : U -> Nil)
+      @iter.rewind
       while true
         item = @iter.next
         if item.is_a? U

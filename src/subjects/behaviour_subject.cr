@@ -17,13 +17,5 @@ module Rx
       @subscribers.each {|subscriber| subscriber.onNext(item) }
     end
 
-    def onError(ex : Exception)
-      @subscribers.each {|subscriber| subscriber.onError(ex) }
-    end
-
-    def onComplete
-      @subscribers.each {|subscriber| subscriber.onComplete() }
-    end
-
   end
 end

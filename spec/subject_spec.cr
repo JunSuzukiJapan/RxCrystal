@@ -101,4 +101,25 @@ describe Rx do
 "
   end
 
+  it "replay_subject" do
+    logger = Debug::Logger.new
+
+    subject = Rx::ReplaySubject(Int32).new(3)
+    subject.onNext(1)
+    subject.onNext(2)
+    subject.onNext(3)
+    subject.onNext(4)
+
+    subject.subscribe(
+      ->(x : Int32){ logger.push "#{x}"},
+      ->(ex : Exception){ logger.push "Error"},
+      ->(){ logger.push "Completed"}
+    )
+
+    subject.onNext(5)
+    subject.onComplete()
+
+    logger.log.should eq "2345Completed"
+  end
+
 end

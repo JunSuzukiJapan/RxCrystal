@@ -14,15 +14,15 @@ module Rx
       onComplete : Proc(Nil) = ->(){}
     )
       observer = Observer(T).new(onNext, onError, onComplete)
-      @subscribers.push observer
-    end
-
-    def subscribe(observer : Observer(T))
-      @subscribers.push observer
+      self.subscribe observer
     end
 
     def subscribe(&onNext : T -> Nil)
       observer = Observer(T).new onNext
+      self.subscribe observer
+    end
+
+    def subscribe(observer : Observer(T))
       @subscribers.push observer
     end
 

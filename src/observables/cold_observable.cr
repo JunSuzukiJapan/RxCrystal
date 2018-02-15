@@ -62,6 +62,10 @@ module Rx
       ColdObservable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
     end
 
+    def unsubscribe
+      # do nothing
+    end
+
     def to_ary
       ary = [] of U
 

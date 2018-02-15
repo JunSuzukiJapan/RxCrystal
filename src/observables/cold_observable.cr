@@ -82,8 +82,8 @@ module Rx
       ColdObservable(T, T).new iter
     end
 
-    def map(&block : T -> U)
-      iter = MapIterator.new(@iter, block)
+    def map(&selector : T -> U)
+      iter = MapIterator.new(@iter, selector)
       ColdObservable(T, U).new iter
     end
 

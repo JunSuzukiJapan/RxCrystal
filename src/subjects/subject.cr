@@ -1,11 +1,24 @@
 require "../observer"
 
 module Rx
+  class Subscription(T)
+    def initialize(@subject : Subject(T), @subscriber : Observer(T))
+    end
+
+    def unsubscribe
+      @subject.unsubscribe @subscriber
+    end
+  end
+
   class Subject(T) < Observer(T)
 
     def initialize
       super()
       @subscribers = [] of Observer(T)
+    end
+
+    def unsubscribe(observer : Observer(T))
+      @subscribers.delete observer
     end
 
     def subscribe(
@@ -24,6 +37,7 @@ module Rx
 
     def subscribe(observer : Observer(T))
       @subscribers.push observer
+      Subscription(T).new(self, observer)
     end
 
     def onNext(item : T)

@@ -122,4 +122,33 @@ describe Rx do
     logger.log.should eq "2345Completed"
   end
 
+#  it "async_subject" do
+#    logger = Debug::Logger.new
+#
+#    subject = Rx::AsyncSubject(Int32).new
+#
+#    subject.subscribe(
+#      ->(x : Int32){ logger.pushln "1 onNext: #{x}"},
+#      ->(ex : Exception){ logger.pushln "1 onError"},
+#      ->(){ logger.pushln "1 onComplete"}
+#    )
+#
+#    subject.onNext(100)
+#
+#    subject.subscribe(
+#      ->(x : Int32){ logger.pushln "2 onNext: #{x}"},
+#      ->(ex : Exception){ logger.pushln "2 onError"},
+#      ->(){ logger.pushln "2 onComplete"}
+#    )
+#
+#    subject.onNext(200)
+#    subject.onComplete()
+#
+#    logger.log.should eq "1 onNext: 200
+#2 onNext: 200
+#1 onComplete
+#2 onComplete
+#"
+#  end
+
 end

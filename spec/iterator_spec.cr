@@ -45,4 +45,13 @@ describe Rx do
     (iter.next.is_a? Iterator::Stop).should be_true
   end
 
+  it "take_operator" do
+    iter = Rx::RangeIterator.new(0, 5)
+    iter = Rx::TakeIterator.new(iter, 3)
+    iter.next.should eq 0
+    iter.next.should eq 1
+    iter.next.should eq 2
+    (iter.next.is_a? Iterator::Stop).should be_true
+  end
+
 end

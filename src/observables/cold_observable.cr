@@ -96,10 +96,15 @@ module Rx
       ColdObservable(T, Tuple(T, T)).new iter
     end
 
-    def repeat(count : Int32)
-      iter = RepeatIterator.new(@iter, count)
-      ColdObservable(T, T).new iter
-    end
+    #def repeat(count : Int32)
+    #  iter = RepeatIterator.new(@iter, count)
+    #  ColdObservable(T, T).new iter
+    #end
+
+    #def take(count : Int32)
+    #  iter = TakeIterator.new(@iter, count)
+    #  ColdObservable(T, T).new iter
+    #end
 
   end
 

@@ -2,8 +2,6 @@ require "./spec_helper"
 require "./logger"
 require "../src/rx"
 
-# https://github.com/crystal-lang/crystal/issues/5694
-# に関連してると思われるCrystalのバグ？で動作しないテスト達。
 describe Rx do
 
   it "repeat" do

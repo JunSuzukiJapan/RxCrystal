@@ -11,8 +11,8 @@ module Rx
     def initialize(@subject : Subject(T), @subscriber : Observer(T))
     end
 
-    def unsubscribe
-      @subject.unsubscribe @subscriber
+    def dispose
+      @subject.dispose @subscriber
     end
   end
 
@@ -23,7 +23,7 @@ module Rx
       @subscribers = [] of Observer(T)
     end
 
-    def unsubscribe(observer : Observer(T))
+    def dispose(observer : Observer(T))
       @subscribers.delete observer
     end
 

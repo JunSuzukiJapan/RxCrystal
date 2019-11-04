@@ -10,8 +10,9 @@ module Rx
 
     def onComplete
       @subscribers.each { |subscriber|
-        if @last.is_a? T
-          subscriber.onNext(@last)
+        tmp = @last
+        if tmp.is_a?(T)
+          subscriber.onNext(tmp)
         end
         subscriber.onComplete()
       }

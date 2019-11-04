@@ -34,7 +34,7 @@ describe Rx do
 "
   end
 
-  it "unsubscribe subject" do
+  it "dispose subject" do
     logger = Debug::Logger.new
 
     subject = Rx::Subject(Int32).new
@@ -55,7 +55,7 @@ describe Rx do
 
     subject.onNext(200)
 
-    subscription1.unsubscribe
+    subscription1.dispose
 
     subject.onNext(300)
 
@@ -122,34 +122,38 @@ describe Rx do
     logger.log.should eq "2345Completed"
   end
 
-#  it "async_subject" do
-#    logger = Debug::Logger.new
-#
-#    subject = Rx::AsyncSubject(Int32).new
-#
-#    subject.subscribe(
-#      ->(x : Int32){ logger.pushln "1 onNext: #{x}"},
-#      ->(ex : Exception){ logger.pushln "1 onError"},
-#      ->(){ logger.pushln "1 onComplete"}
-#    )
-#
-#    subject.onNext(100)
-#
-#    subject.subscribe(
-#      ->(x : Int32){ logger.pushln "2 onNext: #{x}"},
-#      ->(ex : Exception){ logger.pushln "2 onError"},
-#      ->(){ logger.pushln "2 onComplete"}
-#    )
-#
-#    subject.onNext(200)
-#    subject.onComplete()
-#
-#    logger.log.should eq "1 onNext: 200
-#2 onNext: 200
-#1 onComplete
-#2 onComplete
-#"
-#  end
+ it "async_subject" do
+   logger = Debug::Logger.new
+
+   subject = Rx::AsyncSubject(Int32).new
+
+   subject.subscribe(
+     ->(x : Int32)     { logger.pushln "1 onNext: #{x}"},
+     ->(ex : Exception){ logger.pushln "1 onError"},
+     ->()              { logger.pushln "1 onComplete"}
+   )
+
+   subject.onNext(100)
+   subject.onNext(110)
+   subject.onNext(120)
+
+   subject.subscribe(
+     ->(x : Int32)     { logger.pushln "2 onNext: #{x}"},
+     ->(ex : Exception){ logger.pushln "2 onError"},
+     ->()              { logger.pushln "2 onComplete"}
+   )
+
+   subject.onNext(130)
+   subject.onNext(140)
+   subject.onNext(200)
+   subject.onComplete()
+
+   logger.log.should eq "1 onNext: 200
+1 onComplete
+2 onNext: 200
+2 onComplete
+"
+ end
 
   it "bindTo" do
     logger = Debug::Logger.new

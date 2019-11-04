@@ -11,9 +11,9 @@ describe Rx::Observer do
       ->(ex : Exception){ logger.push "Error: #{ex}" },
       ->{ logger.push "Completed" }
     )
-    #observer = Rx::Observer.new onNext: ->(x : Int32){ puts x }
-    #observer = Rx::Observer(Int32).new onError: ->(e : Exception){ puts "Error" }
-    #observer = Rx::Observer(Int32).new onComplete: ->(){ puts "Completed." }
+    # observer = Rx::Observer.new onNext: ->(x : Int32){ logger.push "#{x}" }
+    # observer = Rx::Observer(Int32).new onError: ->(e : Exception){ logger.push "Error: #{ex}" }
+    # observer = Rx::Observer(Int32).new onComplete: ->(){ logger.push "Completed" }
     a = Rx::Observable.from_array [4, 5, 6]
     a.subscribe(observer)
 

@@ -18,6 +18,11 @@ module Rx
       onComplete : Proc(Nil) = ->(){}
     )
       # do nothing
+      self
+    end
+
+    def dispose
+      # do nothing
     end
 
     def subscribe(observer : Observer(T))

@@ -1,6 +1,6 @@
-# rx
+# RxCrystal
 
-TODO: Write a description here
+Reactive Extensions for Crystal Language.
 
 ## Installation
 
@@ -9,7 +9,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   rx:
-    github: [your-github-name]/rx
+    github: JunSuzukiJapan/RxCrystal
 ```
 
 ## Usage
@@ -20,13 +20,9 @@ require "rx"
 
 TODO: Write usage instructions here
 
-## Development
-
-TODO: Write development instructions here
-
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/rx/fork )
+1. Fork it ( https://github.com/JunSuzukiJapan/RxCrystal/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -34,4 +30,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) JunSuzukiJapan - creator, maintainer
+- [JunSuzukiJapan](https://github.com/JunSuzukiJapan) - creator, maintainer

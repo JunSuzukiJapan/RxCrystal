@@ -16,7 +16,7 @@
                 "isDefault": true
             },
             "presentation": {
-                "panel": "new"
+                "panel": "dedicated"
             },
             "problemMatcher": {
                 "owner": "crystal",
@@ -45,7 +45,7 @@
                 "${file}"
             ],
             "presentation": {
-                "panel": "new"
+                "panel": "dedicated"
             },
             "problemMatcher": []
         },
@@ -58,7 +58,7 @@
                 "isDefault": true
             },
             "presentation": {
-                "panel": "new"
+                "panel": "dedicated"
             },
             "problemMatcher": [
                 {

@@ -19,15 +19,15 @@ describe Rx do
   end
 
   it "map_iterator" do
-#    iter = Rx::RangeIterator.new(1, 5)
-#    iter = Rx::MapIterator.new(iter, ->(x : Int32){ x * x })
+    iter = Rx::RangeIterator.new(1, 5)
+    iter = Rx::MapIterator.new(iter, ->(x : Int32){ x * x })
 
-#    iter.next.should eq 1
-#    iter.next.should eq 4
-#    iter.next.should eq 9
-#    iter.next.should eq 16
-#    iter.next.should eq 25
-#    (iter.next.is_a? Iterator::Stop).should be_true
+    iter.next.should eq 1
+    iter.next.should eq 4
+    iter.next.should eq 9
+    iter.next.should eq 16
+    iter.next.should eq 25
+    (iter.next.is_a? Iterator::Stop).should be_true
   end
 
   it "repeat_iterator" do
@@ -52,6 +52,17 @@ describe Rx do
     iter.next.should eq 1
     iter.next.should eq 2
     (iter.next.is_a? Iterator::Stop).should be_true
+  end
+
+  it "list" do
+    list = Rx::Util::List(Int32).new
+    list.push_first 1
+    list.push_first 2
+    list.push_first 3
+    iter = list.iter
+    iter.next.should eq 3
+    iter.next.should eq 2
+    iter.next.should eq 1
   end
 
 end

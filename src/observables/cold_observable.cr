@@ -6,8 +6,8 @@ module Rx
       ColdObservable(T, T).new(ArrayIterator.new array)
     end
 
-    def self.range(start : Int32, end : Int32)
-      ColdObservable(Int32, Int32).new(RangeIterator.new(start, end))
+    def self.range(start : Int32, _end : Int32)
+      ColdObservable(Int32, Int32).new(RangeIterator.new(start, _end))
     end
 
     def self.throw(e : Exception)
@@ -62,7 +62,7 @@ module Rx
       ColdObservable(T, T).new(ArrayIterator.new [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10])
     end
 
-    def unsubscribe
+    def dispose
       # do nothing
     end
 
@@ -96,15 +96,15 @@ module Rx
       ColdObservable(T, Tuple(T, T)).new iter
     end
 
-    #def repeat(count : Int32)
-    #  iter = RepeatIterator.new(@iter, count)
-    #  ColdObservable(T, T).new iter
-    #end
+    def repeat(count : Int32)
+     iter = RepeatIterator.new(@iter, count)
+     ColdObservable(T, T).new iter
+    end
 
-    #def take(count : Int32)
-    #  iter = TakeIterator.new(@iter, count)
-    #  ColdObservable(T, T).new iter
-    #end
+    def take(count : Int32)
+     iter = TakeIterator.new(@iter, count)
+     ColdObservable(T, T).new iter
+    end
 
   end
 

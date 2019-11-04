@@ -30,7 +30,7 @@ describe Rx do
     observer = Rx::Observer(Int32).new onError: ->(e : Exception){ puts "Error" }
     observer = Rx::Observer(Int32).new onComplete: ->(){ puts "Completed." }
     a = Rx::Observable.from_array [4, 5, 6]
-    #a.subscribe(observer) # この行があると、なぜか 'it "map" do'内のb.mapを呼んだときにエラーが起きる。たぶん、Crystalのバグ?
+    a.subscribe(observer) # この行があると、なぜか 'it "map" do'内のb.mapを呼んだときにエラーが起きる。たぶん、Crystalのバグ?
     # おそらく、  https://github.com/crystal-lang/crystal/issues/5694   に関連してる。
   end
 
@@ -51,7 +51,7 @@ describe Rx do
       #.subscribe {|x| puts x}
     ary = b.to_ary
     (ary <=> [25, 49, 81]).should eq 0
-    end
+  end
 
   it "zip" do
     a = Rx::Observable.from_array [4, 5, 6]

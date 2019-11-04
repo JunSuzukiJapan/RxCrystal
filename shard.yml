@@ -4,6 +4,6 @@ version: 0.1.0
 authors:
   - JunSuzukiJapan <jun.suzuki.japan@gmail.com>
 
-crystal: 0.24.1
+crystal: 0.31.1
 
 license: MIT
